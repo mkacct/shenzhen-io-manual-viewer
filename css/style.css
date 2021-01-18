@@ -1,0 +1,180 @@
+body {
+	font-family: "Segoe UI", "Roboto", sans-serif;
+	background-color: #181818;
+	color: black;
+	overflow: hidden;
+}
+
+.js-focus-visible :focus:not(.focus-visible) {outline: none;}
+
+a {
+	color: dodgerblue;
+	text-decoration: none;
+}
+
+a:hover {text-decoration: underline;}
+
+button {
+	cursor: pointer;
+	border-radius: 0;
+	background-color: lightgray;
+	color: black;
+	border: 2px solid gray;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	outline-offset: 2px;
+}
+
+button.selected {background-color: white;}
+
+#container {
+	width: 100vw;
+	height: calc(11/17 * 100vw);
+	max-height: 100vh;
+	margin: auto;
+	position: absolute;
+	top: 0; bottom: 0; left: 0; right: 0;
+	background-color: #e7e7e7;
+	box-shadow: 0 0 1em #171717;
+	display: flex;
+}
+
+#container > .page {
+	margin: 1em;
+	height: calc(100% - 2em);
+	box-shadow: 0 0 1em black;
+}
+
+#container > .page img {height: 100%;}
+
+#menu, .submenu {
+	padding: 2.5em 1.5em;
+	overflow: auto;
+}
+
+.submenu {flex-grow: 1;}
+.submenu h2 {margin-top: 0;}
+
+#menu {
+	text-align: center;
+	flex-shrink: 0;
+}
+
+#menu img {
+	display: block;
+	width: calc((50vw - 2em) * (331/850));
+	border: 2px solid gray;
+	margin: 0 auto 1em;
+}
+
+#menu button, #tabs button, #contents button {
+	display: block;
+	width: 100%;
+}
+
+#menu button, #tabs button {
+	padding: 0.5em 1em;
+	margin: 0.5em 0;
+	font-size: 1.1em;
+	white-space: nowrap;
+}
+
+#contentsDiv {border: 2px solid gray;}
+
+#contents button {
+	border-style: none;
+	padding: 0.5em;
+	text-align: left;
+	outline-offset: 0;
+}
+
+#contents button.secondary {padding-left: 2em;}
+
+#instructions table {border-collapse: collapse;}
+
+#instructions td {
+	white-space: nowrap;
+	border: 1px solid gray;
+	padding: 0.5em;
+}
+
+#instructions td:last-child {text-align: right;}
+
+.divider {
+	width: 0;
+	height: calc(100% - 2em);
+	margin: 1em 0;
+	border-left: 2px solid gray;
+}
+
+.page {position: relative;}
+
+.imgNav {
+	position: absolute;
+	width: calc(100% / 3);
+	height: 100%;
+	border-style: none;
+	background-color: transparent;
+}
+
+.imgNav.left {left: 0;}
+
+.imgNav.center {
+	left: calc(100% / 3);
+	cursor: zoom-in;
+}
+
+.imgNav.center.inLightbox {cursor: zoom-out;}
+
+.imgNav.right {right: 0;}
+
+#lightbox {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: calc(100% - 4em);
+	height: calc(100% - 4em);
+	border-style: none;
+	padding: 2em;
+	background-color: #00000080;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#lightbox .page {
+	display: block;
+	width: 850px;
+	margin: 0 auto;
+	max-width: 100%;
+	box-shadow: 0 0 1em black;
+}
+
+#lightbox .page img {width: 100%;}
+
+#lightbox::backdrop, #lightbox + .backdrop {background-color: transparent;}
+
+.otherDialog {
+	position: fixed;
+	top: 50%;
+	transform: translate(0, -50%);
+	border-style: none;
+	padding: 0;
+	box-shadow: 0 0 1em black;
+}
+
+.otherDialog::backdrop, .otherDialog + .backdrop {
+	display: fixed;
+	background-color: #00000080;
+}
+
+.otherDialog + .backdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+@media only screen and (min-width: 1190px) {
+	#menu img {width: calc(331px * (16/22));}
+}
