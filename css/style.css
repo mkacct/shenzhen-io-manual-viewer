@@ -159,12 +159,18 @@ button.selected {background-color: white;}
 	transform: translate(0, -50%);
 	border-style: none;
 	padding: 0;
+	cursor: pointer;
+}
+
+.otherDialog img {
 	box-shadow: 0 0 1em black;
+	display: block;
 }
 
 .otherDialog::backdrop, .otherDialog + .backdrop {
 	display: fixed;
 	background-color: #00000080;
+	cursor: pointer;
 }
 
 .otherDialog + .backdrop {

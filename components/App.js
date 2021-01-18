@@ -57,7 +57,7 @@ class App extends React.Component {
 	}
 	
 	anyDialogsOpen() {
-		return this.lightbox.current.isOpen();
+		return this.lightbox.current.isOpen() || this.referenceCard.current.isOpen();
 	}
 	
 	setPage(page) {
@@ -99,7 +99,7 @@ class App extends React.Component {
 				<Dialog id="lightbox" ref={this.lightbox} modal handleChange={(isOpen) => {this.setState({lightboxReadOpen: isOpen});}}>
 					<PageViewer page={this.state.page} maxPage={this.state.maxPage} changePage={this.changePage} setLightbox={this.setLightbox} lightbox />
 				</Dialog>
-				<Dialog ref={this.referenceCard} modal className="otherDialog">
+				<Dialog ref={this.referenceCard} modal className="otherDialog" onClick={() => {this.referenceCard.current.setOpen(false);}}>
 					<ReferenceCard />
 				</Dialog>
 			</div>
