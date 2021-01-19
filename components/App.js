@@ -87,7 +87,7 @@ class App extends React.Component {
 	}
 	
 	anyDialogsOpen() {
-		return this.state.showLightbox || this.state.showReferenceCard;
+		return this.state.showLightbox || this.state.showReferenceCard || this.state.showStory;
 	}
 	
 	setPage(page) {
