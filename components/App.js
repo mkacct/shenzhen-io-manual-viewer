@@ -111,7 +111,7 @@ class App extends React.Component {
 				<Menu submenu={this.state.submenu} switch={(submenu) => {this.setState({submenu: submenu});}} showCard={() => {this.setState({showReferenceCard: true});}} showStory={() => {this.setState({showStory: true});}} />
 				<div className="divider"></div>
 				{submenu}
-				<PageViewer page={this.state.page} maxPage={this.state.maxPage} changePage={this.changePage} setLightbox={(bool) => {this.setState({showLightbox: bool});}} hide={this.state.lightboxReadOpen} />
+				<PageViewer page={this.state.page} maxPage={this.state.maxPage} changePage={this.changePage} setLightbox={(bool) => {this.setState({showLightbox: bool});}} hide={this.state.showLightbox} />
 				<Dialog id="lightbox" open={this.state.showLightbox} ref={this.lightbox} modal handleClose={() => {this.setState({showLightbox: false});}}>
 					<PageViewer page={this.state.page} maxPage={this.state.maxPage} changePage={this.changePage} setLightbox={(bool) => {this.setState({showLightbox: bool});}} lightbox />
 				</Dialog>
