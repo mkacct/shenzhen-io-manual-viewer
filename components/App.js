@@ -8,9 +8,11 @@ class App extends React.Component {
 			maxPage: 35,
 			submenu: "tabs",
 			showLightbox: false,
+			showStory: false,
 			showReferenceCard: false
 		}
 		this.lightbox = React.createRef();
+		this.story = React.createRef();
 		this.setPage = this.setPage.bind(this);
 		this.changePage = this.changePage.bind(this);
 	}
@@ -83,6 +85,9 @@ class App extends React.Component {
 		if (this.state.showLightbox && !prevState.showLightbox) {
 			ReactDOM.findDOMNode(this.lightbox.current).scrollTop = 0;
 		}
+		if (this.state.showStory && !prevState.showStory) {
+			ReactDOM.findDOMNode(this.story.current).scrollLeft = 0;
+		}
 	}
 	
 	render() {
@@ -103,12 +108,15 @@ class App extends React.Component {
 		}
 		return (
 			<div id="container">
-				<Menu submenu={this.state.submenu} switch={(submenu) => {this.setState({submenu: submenu});}} showCard={() => {this.setState({showReferenceCard: true});}} />
+				<Menu submenu={this.state.submenu} switch={(submenu) => {this.setState({submenu: submenu});}} showCard={() => {this.setState({showReferenceCard: true});}} showStory={() => {this.setState({showStory: true});}} />
 				<div className="divider"></div>
 				{submenu}
 				<PageViewer page={this.state.page} maxPage={this.state.maxPage} changePage={this.changePage} setLightbox={(bool) => {this.setState({showLightbox: bool});}} hide={this.state.lightboxReadOpen} />
 				<Dialog id="lightbox" open={this.state.showLightbox} ref={this.lightbox} modal handleClose={() => {this.setState({showLightbox: false});}}>
 					<PageViewer page={this.state.page} maxPage={this.state.maxPage} changePage={this.changePage} setLightbox={(bool) => {this.setState({showLightbox: bool});}} lightbox />
+				</Dialog>
+				<Dialog id="story" open={this.state.showStory} ref={this.story} modal className="otherDialog" onClick={() => {this.setState({showStory: false});}} handleClose={() => {this.setState({showStory: false});}}>
+					<Story />
 				</Dialog>
 				<Dialog open={this.state.showReferenceCard} modal className="otherDialog" onClick={() => {this.setState({showReferenceCard: false});}} handleClose={() => {this.setState({showReferenceCard: false});}}>
 					<ReferenceCard />
