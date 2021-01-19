@@ -7,13 +7,12 @@ class App extends React.Component {
 			page: 1,
 			maxPage: 35,
 			submenu: "tabs",
-			lightboxReadOpen: false
+			showLightbox: false,
+			showReferenceCard: false
 		}
 		this.lightbox = React.createRef();
-		this.referenceCard = React.createRef();
 		this.setPage = this.setPage.bind(this);
 		this.changePage = this.changePage.bind(this);
-		this.setLightbox = this.setLightbox.bind(this);
 	}
 	
 	componentDidMount() {
@@ -22,6 +21,7 @@ class App extends React.Component {
 			switch (e.key) {
 				case "ArrowLeft":
 					if (e.ctrlKey) {
+						e.preventDefault();
 						this.setPage(1);
 						break;
 					}
@@ -32,6 +32,7 @@ class App extends React.Component {
 					break;
 				case "ArrowRight":
 					if (e.ctrlKey) {
+						e.preventDefault();
 						this.setPage(this.state.maxPage);
 						break;
 					}
@@ -41,23 +42,32 @@ class App extends React.Component {
 					this.changePage(1);
 					break;
 				case "Home":
+					e.preventDefault();
 					this.setPage(1);
 					break;
 				case "End":
+					e.preventDefault();
 					this.setPage(this.state.maxPage);
 					break;
 				case "Escape":
-					if (!this.anyDialogsOpen()) {this.setState({submenu: "tabs"});}
+					if (!this.anyDialogsOpen()) {
+						this.setState({submenu: "tabs"});
+					} else {
+						return;
+					}
 					break;
 				case "1":
-					this.referenceCard.current.setOpen(!this.referenceCard.current.isOpen());
+					this.setState({showReferenceCard: !this.state.showReferenceCard});
 					break;
+				default:
+					return;
 			}
+			document.activeElement.blur();
 		});
 	}
 	
 	anyDialogsOpen() {
-		return this.lightbox.current.isOpen() || this.referenceCard.current.isOpen();
+		return this.state.showLightbox || this.state.showReferenceCard;
 	}
 	
 	setPage(page) {
@@ -69,9 +79,10 @@ class App extends React.Component {
 		if (newPage >= 1 && newPage <= this.state.maxPage) {this.setState({page: newPage});}
 	}
 	
-	setLightbox(bool) {
-		this.lightbox.current.setOpen(bool);
-		if (bool) {ReactDOM.findDOMNode(this.lightbox.current).scrollTop = 0;}
+	componentDidUpdate(prevProps, prevState) {
+		if (this.state.showLightbox && !prevState.showLightbox) {
+			ReactDOM.findDOMNode(this.lightbox.current).scrollTop = 0;
+		}
 	}
 	
 	render() {
@@ -92,14 +103,14 @@ class App extends React.Component {
 		}
 		return (
 			<div id="container">
-				<Menu submenu={this.state.submenu} switch={(submenu) => {this.setState({submenu: submenu});}} showCard={() => {this.referenceCard.current.setOpen(true);}} />
+				<Menu submenu={this.state.submenu} switch={(submenu) => {this.setState({submenu: submenu});}} showCard={() => {this.setState({showReferenceCard: true});}} />
 				<div className="divider"></div>
 				{submenu}
-				<PageViewer page={this.state.page} maxPage={this.state.maxPage} changePage={this.changePage} setLightbox={this.setLightbox} hide={this.state.lightboxReadOpen} />
-				<Dialog id="lightbox" ref={this.lightbox} modal handleChange={(isOpen) => {this.setState({lightboxReadOpen: isOpen});}}>
-					<PageViewer page={this.state.page} maxPage={this.state.maxPage} changePage={this.changePage} setLightbox={this.setLightbox} lightbox />
+				<PageViewer page={this.state.page} maxPage={this.state.maxPage} changePage={this.changePage} setLightbox={(bool) => {this.setState({showLightbox: bool});}} hide={this.state.lightboxReadOpen} />
+				<Dialog id="lightbox" open={this.state.showLightbox} ref={this.lightbox} modal handleClose={() => {this.setState({showLightbox: false});}}>
+					<PageViewer page={this.state.page} maxPage={this.state.maxPage} changePage={this.changePage} setLightbox={(bool) => {this.setState({showLightbox: bool});}} lightbox />
 				</Dialog>
-				<Dialog ref={this.referenceCard} modal className="otherDialog" onClick={() => {this.referenceCard.current.setOpen(false);}}>
+				<Dialog open={this.state.showReferenceCard} modal className="otherDialog" onClick={() => {this.setState({showReferenceCard: false});}} handleClose={() => {this.setState({showReferenceCard: false});}}>
 					<ReferenceCard />
 				</Dialog>
 			</div>

@@ -6,38 +6,29 @@ class Dialog extends React.Component {
 		this.handleClose = this.handleClose.bind(this);
 	}
 	
-	componentDidMount() {
-		dialogPolyfill.registerDialog(ReactDOM.findDOMNode(this));
-	}
+	componentDidMount() {dialogPolyfill.registerDialog(ReactDOM.findDOMNode(this));}
 	
-	setOpen(bool) {
+	componentDidUpdate() {
 		const dialog = ReactDOM.findDOMNode(this);
-		if (bool && !dialog.open) {
+		if (this.props.open && !dialog.open) {
 			if (this.props.modal) {
 				dialog.showModal();
 			} else {
 				dialog.show();
 			}
-			if (this.props.handleChange) {
-				this.props.handleChange(true);
-			}
-		} else if (dialog.open && !bool) {
+		} else if (dialog.open && !this.props.open) {
 			dialog.close();
 		}
 	}
 	
-	isOpen() {return ReactDOM.findDOMNode(this).open;}
-	
 	handleClose() {
-		if (this.props.handleChange) {
-			this.props.handleChange(false);
-		}
+		if (this.props.handleClose) {this.props.handleClose();}
 	}
 	
 	render() {
 		let filteredProps = {};
 		for (let key in this.props) {
-			if (["modal", "handleChange"].indexOf(key) < 0) {filteredProps[key] = this.props[key];}
+			if (["open", "modal", "handleClose"].indexOf(key) < 0) {filteredProps[key] = this.props[key];}
 		}
 		return (
 			<dialog {...filteredProps} onClose={this.handleClose}>
