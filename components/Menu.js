@@ -9,6 +9,7 @@ class Menu extends React.Component {
 				<button onClick={() => {this.props.switch("contents");}} className={this.props.submenu == "contents" ? "selected" : null}>Contents</button>
 				<button onClick={this.props.showStory}>Story Documents</button>
 				<button onClick={this.props.showCard}>Reference Card</button>
+				<button onClick={() => {this.props.switch("prefs");}} className={this.props.submenu == "prefs" ? "selected" : null}>Preferences</button>
 				<button onClick={() => {this.props.switch("instructions");}} className={this.props.submenu == "instructions" ? "selected" : null}>Viewer Instructions</button>
 				<button onClick={() => {this.props.switch("about");}} className={this.props.submenu == "about" ? "selected" : null}>About</button>
 			</div>

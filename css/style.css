@@ -139,6 +139,7 @@ dialog {
 	background-color: #00000080;
 	overflow-y: auto;
 	overflow-x: hidden;
+	cursor: pointer;
 }
 
 dialog .page {
@@ -147,15 +148,12 @@ dialog .page {
 	margin: 0 auto;
 	max-width: 100%;
 	box-shadow: 0 0 1em black;
+	cursor: default;
 }
 
 dialog .page img {width: 100%;}
 
-dialog::backdrop, #lightbox + .backdrop {background-color: transparent;}
-
-.otherDialog {
-	cursor: pointer;
-}
+dialog::backdrop, dialog + .backdrop {background-color: transparent;}
 
 .otherDialog img {box-shadow: 0 0 1em black;}
 
@@ -182,6 +180,16 @@ dialog::backdrop, #lightbox + .backdrop {background-color: transparent;}
 
 #story img:first-child {margin-left: 2em;}
 #story img:last-child {margin-right: 2em;}
+
+input {
+	width: 100%;
+	border-radius: 0;
+	color: inherit;
+	padding: 0.5em;
+	border: 1px solid gray;
+	background-color: white;
+	box-sizing: border-box;
+}
 
 @media only screen and (min-width: 1190px) {
 	#menu img {width: calc(331px * (16/22));}

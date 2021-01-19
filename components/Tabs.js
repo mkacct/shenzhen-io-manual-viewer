@@ -37,6 +37,7 @@ class Tabs extends React.Component {
 			<div className="submenu" id="tabs">
 				<h2>Tabs</h2>
 				{tabs}
+				<button onClick={this.props.engineeringNotes}>Engineering Notes</button>
 			</div>
 		);
 	}
