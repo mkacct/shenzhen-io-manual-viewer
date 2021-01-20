@@ -1,7 +1,7 @@
 {
-	"name": "Shenzhen I/O Manual",
-	"short_name": "Shenzhen I/O Manual",
-	"description": "Shenzhen I/O manual viewer",
+	"name": "SHENZHEN IO Manual",
+	"short_name": "SHENZHEN IO Manual",
+	"description": "SHENZHEN I/O manual viewer",
 	"dir": "ltr",
 	"lang": "en-US",
 	"display": "standalone",
