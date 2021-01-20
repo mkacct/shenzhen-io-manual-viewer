@@ -191,6 +191,8 @@ input {
 	box-sizing: border-box;
 }
 
+noscript {color: white;}
+
 @media only screen and (min-width: 1190px) {
 	#menu img {width: calc(331px * (16/22));}
 }
