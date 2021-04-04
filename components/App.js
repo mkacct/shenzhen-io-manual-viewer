@@ -61,6 +61,7 @@ class App extends React.Component {
 					break;
 				case "Escape":
 					if (!this.anyDialogsOpen()) {
+						if (e.repeat) {return;}
 						this.setState({submenu: "tabs"});
 					} else {
 						return;
